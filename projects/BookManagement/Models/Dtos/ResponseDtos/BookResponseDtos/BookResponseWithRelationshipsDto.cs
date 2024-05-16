@@ -1,4 +1,5 @@
-﻿using Models.Entities;
+﻿using Core.Persistence.DtoBaseModel;
+using Models.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Models.Dtos.ResponseDtos.BookResponseDtos;
 
-public record BookResponseWithRelationshipsDto(Guid Id, string Name, string Description, decimal Price, int Stock, string CategoryName, string AuthorName)
+public record BookResponseWithRelationshipsDto(Guid Id, string Name, string Description, decimal Price, int Stock, string CategoryName, string AuthorName) : ResponseDto
 {
     public static BookResponseWithRelationshipsDto ConvertToResponse(Book entity)
     {

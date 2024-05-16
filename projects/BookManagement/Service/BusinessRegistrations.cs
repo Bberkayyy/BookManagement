@@ -1,6 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Service.Abstract;
 using Service.Concrete;
+using Service.ServiceRules.Abstract;
+using Service.ServiceRules.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +18,10 @@ public static class BusinessRegistrations
         services.AddScoped<IBookService, BookManager>();
         services.AddScoped<IAuthorService, AuthorManager>();
         services.AddScoped<ICategoryService, CategoryManager>();
+
+        services.AddScoped<ICategoryRules, CategoryRules>();
+        //services.AddScoped<IBookRules, BookRules>();
+        //services.AddScoped<IAuthorRules, AuthorRules>();
         return services;
     }
 }

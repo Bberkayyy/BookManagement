@@ -1,3 +1,4 @@
+using Core.CrossCuttingConcerns;
 using DataAccess;
 using Service;
 
@@ -25,6 +26,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+app.UseCustomExceptionHandler();
 
 app.MapControllers();
 

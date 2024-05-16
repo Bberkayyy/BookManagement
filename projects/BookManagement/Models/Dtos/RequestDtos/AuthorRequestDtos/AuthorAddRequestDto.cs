@@ -1,4 +1,5 @@
-﻿using Models.Entities;
+﻿using Core.Persistence.DtoBaseModel;
+using Models.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Models.Dtos.RequestDtos.AuthorRequestDtos;
 
-public record AuthorAddRequestDto(string FirstName, string LastName, string Phone, string Email, int Age)
+public record AuthorAddRequestDto(string FirstName, string LastName, string Country) : RequestDto
 {
     public static Author ConvertToEntity(AuthorAddRequestDto addRequestDto)
     {
@@ -15,9 +16,7 @@ public record AuthorAddRequestDto(string FirstName, string LastName, string Phon
         {
             FirstName = addRequestDto.FirstName,
             LastName = addRequestDto.LastName,
-            Phone = addRequestDto.Phone,
-            Email = addRequestDto.Email,
-            Age = addRequestDto.Age
+            Country = addRequestDto.Country,
         };
     }
 }

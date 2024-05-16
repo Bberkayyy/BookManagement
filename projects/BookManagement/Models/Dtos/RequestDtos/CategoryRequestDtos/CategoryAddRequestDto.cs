@@ -1,4 +1,5 @@
-﻿using Models.Entities;
+﻿using Core.Persistence.DtoBaseModel;
+using Models.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Models.Dtos.RequestDtos.CategoryRequestDtos;
 
-public record CategoryAddRequestDto(string Name)
+public record CategoryAddRequestDto(string Name) : RequestDto
 {
     public static Category ConvertToEntity(CategoryAddRequestDto addRequestDto)
     {

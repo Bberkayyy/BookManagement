@@ -16,7 +16,7 @@ public interface IBookService
 {
     Response<BookResponseDto> TAdd(BookAddRequestDto addRequestDto);
     Response<BookResponseDto> TUpdate(BookUpdateRequestDto updateRequestDto);
-    Response<BookResponseDto> TDelete(Guid Id);
+    Response<BookResponseDto> TDelete(Guid id);
 
     Response<List<BookResponseDto>> TGetAll(Expression<Func<Book, bool>>? predicate = null, Func<IQueryable<Book>, IIncludableQueryable<Book, object>>? include = null);
     Response<BookResponseDto> TGetById(Guid id, Func<IQueryable<Book>, IIncludableQueryable<Book, object>>? include = null);

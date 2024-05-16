@@ -17,7 +17,7 @@ public interface IAuthorService
 {
     Response<AuthorResponseDto> TAdd(AuthorAddRequestDto addRequestDto);
     Response<AuthorResponseDto> TUpdate(AuthorUpdateRequestDto updateRequestDto);
-    Response<AuthorResponseDto> TDelete(Guid Id);
+    Response<AuthorResponseDto> TDelete(Guid id);
 
     Response<List<AuthorResponseDto>> TGetAll(Expression<Func<Author, bool>>? predicate = null, Func<IQueryable<Author>, IIncludableQueryable<Author, object>>? include = null);
     Response<AuthorResponseDto> TGetById(Guid id, Func<IQueryable<Author>, IIncludableQueryable<Author, object>>? include = null);

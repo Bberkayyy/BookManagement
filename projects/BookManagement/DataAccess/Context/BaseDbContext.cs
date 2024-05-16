@@ -38,23 +38,54 @@ public class BaseDbContext : DbContext
         modelBuilder.Entity<Author>(a =>
         {
             a.ToTable("Authors").HasKey(x => x.Id);
+            a.Property(x => x.Id).HasColumnName("Id");
             a.Property(x => x.FirstName).HasColumnName("FirstName");
             a.Property(x => x.LastName).HasColumnName("LastName");
-            a.Property(x => x.Phone).HasColumnName("Phone");
-            a.Property(x => x.Email).HasColumnName("Email");
-            a.Property(x => x.Age).HasColumnName("Age");
+            a.Property(x => x.Country).HasColumnName("Country");
 
             a.HasMany(x => x.Books);
+        });
+        modelBuilder.Entity<AppUser>(u =>
+        {
+            u.ToTable("AppUsers").HasKey(x => x.Id);
+            u.Property(x => x.Id).HasColumnName("Id");
+            u.Property(x => x.FirstName).HasColumnName("FirstName");
+            u.Property(x => x.LastName).HasColumnName("LastName");
+            u.Property(x => x.Email).HasColumnName("Email");
+            u.Property(x => x.Username).HasColumnName("Username");
+            u.Property(x => x.Password).HasColumnName("Password");
+        });
+        modelBuilder.Entity<AppRole>(r =>
+        {
+            r.ToTable("AppRoles").HasKey(x => x.Id);
+            r.Property(x => x.Id).HasColumnName("Id");
+            r.Property(x => x.Name).HasColumnName("Name");
+        });
+        modelBuilder.Entity<AppUserRole>(ur =>
+        {
+            ur.ToTable("AppUserRoles").HasKey(x => x.Id);
+            ur.Property(x => x.Id).HasColumnName("Id");
+
+            ur.HasOne(x => x.User).WithMany(u => u.AppUserRoles).HasForeignKey(x => x.AppUserId);
+            ur.HasOne(x => x.Role).WithMany(r => r.AppUserRoles).HasForeignKey(x => x.AppRoleId);
+
         });
 
         Guid categoryId = Guid.NewGuid();
         Guid authorId = Guid.NewGuid();
+        Guid appUserId = Guid.NewGuid();
 
         modelBuilder.Entity<Category>().HasData(new Category() { Id = categoryId, Name = "Roman" });
-        modelBuilder.Entity<Author>().HasData(new Author() { Id = authorId, FirstName = "John", LastName = "Verdon", Phone = "05555555555", Email = "johnverdon@gmail.com", Age = 82 });
+        modelBuilder.Entity<Author>().HasData(new Author() { Id = authorId, FirstName = "John", LastName = "Verdon", Country = "ABD" });
         modelBuilder.Entity<Book>().HasData(new Book() { Id = Guid.NewGuid(), Name = "Aklından Bir Sayı Tut", Price = 122, Stock = 500, Description = "Sizi sizden bile iyi tanıyan bir katilin peşinizde olduğunu bilseniz, kaçmak için ne yapabilirsiniz? Polisiye türündeki eserleriyle okuyucuyu her defasında soluksuz bırakmayı başaran John Verdon’dan etkileyici bir yapıt daha! Aklında Bir Sayı Tut, bir seri katil ile onun peşine düşen bir dedektifin heyecan dolu kovalamacasını konu ediniyor. Bu katilin kurban seçtiği kişilerin ortak bir noktası var. Peki ama ne? Bu romanı okurken merakınıza engel olamayacak ve olayların sonunu asla tahmin edemeyeceksiniz!", AuthorId = authorId, CategoryId = categoryId });
+        modelBuilder.Entity<AppRole>().HasData(new AppRole() { Id = 1, Name = "Admin" }, new AppRole() { Id = 2, Name = "Visitor" });
+        modelBuilder.Entity<AppUser>().HasData(new AppUser() { Id = appUserId, FirstName = "FirstName", LastName = "LastName", Username = "Username", Password = "12345", Email = "seeduser@gmail.com" });
+        modelBuilder.Entity<AppUserRole>().HasData(new AppUserRole() { Id = 1, AppUserId = appUserId, AppRoleId = 1 }, new AppUserRole() { Id = 2, AppUserId = appUserId, AppRoleId = 2 });
     }
     public DbSet<Book> Books { get; set; }
     public DbSet<Category> Categories { get; set; }
     public DbSet<Author> Authors { get; set; }
+    public DbSet<AppUser> AppUsers { get; set; }
+    public DbSet<AppRole> AppRoles { get; set; }
+    public DbSet<AppUserRole> AppUserRoles { get; set; }
 }

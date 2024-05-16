@@ -6,6 +6,7 @@ using Models.Dtos.ResponseDtos.BookResponseDtos;
 using Models.Dtos.ResponseDtos.CategoryResponseDtos;
 using Models.Entities;
 using Service.Abstract;
+using Service.ServiceRules.Abstract;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,14 +19,17 @@ namespace Service.Concrete;
 public class CategoryManager : ICategoryService
 {
     private readonly ICategoryRepository _categoryRepository;
+    private readonly ICategoryRules _categoryRules;
 
-    public CategoryManager(ICategoryRepository categoryRepository)
+    public CategoryManager(ICategoryRepository categoryRepository, ICategoryRules categoryRules)
     {
         _categoryRepository = categoryRepository;
+        _categoryRules = categoryRules;
     }
 
     public Response<List<BookResponseWithRelationshipsDto>> TGetCategoryBooks(Guid categoryId)
     {
+        _categoryRules.CategoryIsExists(categoryId);
         List<Book> books = _categoryRepository.GetCategoryBooks(categoryId);
         List<BookResponseWithRelationshipsDto> response = books.Select(x => BookResponseWithRelationshipsDto.ConvertToResponse(x)).ToList();
         return new Response<List<BookResponseWithRelationshipsDto>>()
@@ -37,6 +41,9 @@ public class CategoryManager : ICategoryService
 
     public Response<CategoryResponseDto> TAdd(CategoryAddRequestDto addRequestDto)
     {
+        _categoryRules.CategoryNameMustBeUnique(addRequestDto.Name);
+        _categoryRules.CategoryNameCanNotBeNullOrWhiteSpace(addRequestDto.Name);
+        _categoryRules.CategoryNameMustBeAtLeast3Characters(addRequestDto.Name);
         Category category = CategoryAddRequestDto.ConvertToEntity(addRequestDto);
         _categoryRepository.Add(category);
         CategoryResponseDto response = CategoryResponseDto.ConvertToResponse(category);
@@ -51,6 +58,7 @@ public class CategoryManager : ICategoryService
 
     public Response<CategoryResponseDto> TDelete(Guid Id)
     {
+        _categoryRules.CategoryIsExists(Id);
         Category? category = _categoryRepository.GetById(Id);
         _categoryRepository.Delete(category);
         return new Response<CategoryResponseDto>()
@@ -85,6 +93,7 @@ public class CategoryManager : ICategoryService
 
     public Response<CategoryResponseDto> TGetById(Guid id, Func<IQueryable<Category>, IIncludableQueryable<Category, object>>? include = null)
     {
+        _categoryRules.CategoryIsExists(id);
         Category? category = _categoryRepository.GetById(id, include);
         CategoryResponseDto response = CategoryResponseDto.ConvertToResponse(category);
         return new Response<CategoryResponseDto>()
@@ -96,6 +105,10 @@ public class CategoryManager : ICategoryService
 
     public Response<CategoryResponseDto> TUpdate(CategoryUpdateRequestDto updateRequestDto)
     {
+        _categoryRules.CategoryIsExists(updateRequestDto.Id);
+        _categoryRules.CategoryNameMustBeUnique(updateRequestDto.Name);
+        _categoryRules.CategoryNameMustBeAtLeast3Characters(updateRequestDto.Name);
+        _categoryRules.CategoryNameCanNotBeNullOrWhiteSpace(updateRequestDto.Name);
         Category category = CategoryUpdateRequestDto.ConvertToEntity(updateRequestDto);
         _categoryRepository.Update(category);
         CategoryResponseDto response = CategoryResponseDto.ConvertToResponse(category);

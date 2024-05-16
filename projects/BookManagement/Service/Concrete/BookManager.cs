@@ -1,33 +1,35 @@
 ﻿using Core.Shared;
 using DataAccess.Repositories.Abstract;
-using DataAccess.Repositories.Concrete;
 using Microsoft.EntityFrameworkCore.Query;
 using Models.Dtos.RequestDtos.BookRequestDtos;
-using Models.Dtos.RequestDtos.BookRequestDtos;
-using Models.Dtos.ResponseDtos.BookResponseDtos;
 using Models.Dtos.ResponseDtos.BookResponseDtos;
 using Models.Entities;
 using Service.Abstract;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using Service.ServiceRules.Abstract;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Service.Concrete;
 
 public class BookManager : IBookService
 {
     private readonly IBookRepository _bookRepository;
+    private readonly IBookRules _bookRules;
 
-    public BookManager(IBookRepository bookRepository)
+    public BookManager(IBookRepository bookRepository, IBookRules bookRules)
     {
         _bookRepository = bookRepository;
+        _bookRules = bookRules;
     }
 
     public Response<BookResponseDto> TAdd(BookAddRequestDto addRequestDto)
     {
+        _bookRules.AuthorIsExists(addRequestDto.AuthorId);
+        _bookRules.CategoryIsExists(addRequestDto.CategoryId);
+        _bookRules.BookNameMustBeUnique(addRequestDto.Name);
+        _bookRules.BookNameCanNotBeNullOrWhiteSpace(addRequestDto.Name);
+        _bookRules.BookDescriptionCanNotBeNullOrWhiteSpace(addRequestDto.Description);
+        _bookRules.BookPriceCanNotBeNegative(addRequestDto.Price);
+        _bookRules.BookStockCanNotBeNegative(addRequestDto.Stock);
         Book book = BookAddRequestDto.ConvertToEntity(addRequestDto);
         _bookRepository.Add(book);
         BookResponseDto response = BookResponseDto.ConvertToResponse(book);
@@ -39,9 +41,10 @@ public class BookManager : IBookService
         };
     }
 
-    public Response<BookResponseDto> TDelete(Guid Id)
+    public Response<BookResponseDto> TDelete(Guid id)
     {
-        Book? book = _bookRepository.GetById(Id);
+        _bookRules.BookIsExists(id);
+        Book? book = _bookRepository.GetById(id);
         _bookRepository.Delete(book);
         return new Response<BookResponseDto>()
         {
@@ -75,6 +78,7 @@ public class BookManager : IBookService
 
     public Response<BookResponseDto> TGetById(Guid id, Func<IQueryable<Book>, IIncludableQueryable<Book, object>>? include = null)
     {
+        _bookRules.BookIsExists(id);
         Book? book = _bookRepository.GetById(id, include);
         BookResponseDto response = BookResponseDto.ConvertToResponse(book);
         return new Response<BookResponseDto>()
@@ -86,6 +90,14 @@ public class BookManager : IBookService
 
     public Response<BookResponseDto> TUpdate(BookUpdateRequestDto updateRequestDto)
     {
+        _bookRules.BookIsExists(updateRequestDto.Id);
+        _bookRules.AuthorIsExists(updateRequestDto.AuthorId);
+        _bookRules.CategoryIsExists(updateRequestDto.CategoryId);
+        _bookRules.BookNameMustBeUnique(updateRequestDto.Name);
+        _bookRules.BookNameCanNotBeNullOrWhiteSpace(updateRequestDto.Name);
+        _bookRules.BookDescriptionCanNotBeNullOrWhiteSpace(updateRequestDto.Description);
+        _bookRules.BookPriceCanNotBeNegative(updateRequestDto.Price);
+        _bookRules.BookStockCanNotBeNegative(updateRequestDto.Stock);
         Book book = BookUpdateRequestDto.ConvertToEntity(updateRequestDto);
         _bookRepository.Update(book);
         BookResponseDto response = BookResponseDto.ConvertToResponse(book);
