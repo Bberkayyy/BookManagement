@@ -3,6 +3,7 @@ using DataAccess.Repositories.Abstract;
 using Microsoft.EntityFrameworkCore.Query;
 using Models.Dtos.RequestDtos.AuthorRequestDtos;
 using Models.Dtos.ResponseDtos.AuthorResponseDtos;
+using Models.Dtos.ResponseDtos.BookResponseDtos;
 using Models.Entities;
 using Service.Abstract;
 using System.Linq.Expressions;
@@ -16,6 +17,17 @@ public class AuthorManager : IAuthorService
     public AuthorManager(IAuthorRepository authorRepository)
     {
         _authorRepository = authorRepository;
+    }
+
+    public Response<List<BookResponseWithRelationshipsDto>> TGetAuthorBooks(Guid authorId)
+    {
+        List<Book> books = _authorRepository.GetAuthorBooks(authorId);
+        List<BookResponseWithRelationshipsDto> response = books.Select(x => BookResponseWithRelationshipsDto.ConvertToResponse(x)).ToList();
+        return new Response<List<BookResponseWithRelationshipsDto>>()
+        {
+            Data = response,
+            StatusCode = System.Net.HttpStatusCode.OK
+        };
     }
 
     public Response<AuthorResponseDto> TAdd(AuthorAddRequestDto addRequestDto)

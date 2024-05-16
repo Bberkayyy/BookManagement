@@ -24,11 +24,11 @@ public class CategoryManager : ICategoryService
         _categoryRepository = categoryRepository;
     }
 
-    public Response<List<BookResponseDto>> GetCategoryBooks(Guid categoryId)
+    public Response<List<BookResponseWithRelationshipsDto>> TGetCategoryBooks(Guid categoryId)
     {
         List<Book> books = _categoryRepository.GetCategoryBooks(categoryId);
-        List<BookResponseDto> response = books.Select(x => BookResponseDto.ConvertToResponse(x)).ToList();
-        return new Response<List<BookResponseDto>>()
+        List<BookResponseWithRelationshipsDto> response = books.Select(x => BookResponseWithRelationshipsDto.ConvertToResponse(x)).ToList();
+        return new Response<List<BookResponseWithRelationshipsDto>>()
         {
             Data = response,
             StatusCode = System.Net.HttpStatusCode.OK

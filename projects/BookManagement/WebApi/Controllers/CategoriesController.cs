@@ -49,10 +49,10 @@ public class CategoriesController : BaseController
         Response<CategoryResponseDto> result = _categoryService.TDelete(id);
         return ActionResultInstance(result);
     }
-    [HttpGet("{id}/books")]
-    public IActionResult GetCategoryBooks(Guid id)
+    [HttpGet("{categoryId}/books")]
+    public IActionResult GetCategoryBooks(Guid categoryId)
     {
-        Response<List<BookResponseDto>> result = _categoryService.GetCategoryBooks(id);
+        Response<List<BookResponseWithRelationshipsDto>> result = _categoryService.TGetCategoryBooks(categoryId);
         return ActionResultInstance(result);
     }
 }

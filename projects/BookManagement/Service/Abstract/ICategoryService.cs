@@ -18,5 +18,5 @@ public interface ICategoryService
     Response<CategoryResponseDto> TGetById(Guid id, Func<IQueryable<Category>, IIncludableQueryable<Category, object>>? include = null);
     Response<CategoryResponseDto> TGetByFilter(Expression<Func<Category, bool>> predicate, Func<IQueryable<Category>, IIncludableQueryable<Category, object>>? include = null);
 
-    Response<List<BookResponseDto>> GetCategoryBooks(Guid categoryId);
+    Response<List<BookResponseWithRelationshipsDto>> TGetCategoryBooks(Guid categoryId);
 }

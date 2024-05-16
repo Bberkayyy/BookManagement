@@ -10,4 +10,5 @@ namespace DataAccess.Repositories.Abstract;
 
 public interface IAuthorRepository : IEntityRepository<Author, Guid>
 {
+    List<Book> GetAuthorBooks(Guid authorId);
 }

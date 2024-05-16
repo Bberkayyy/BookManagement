@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore.Query;
 using Models.Dtos.RequestDtos.AuthorRequestDtos;
 using Models.Dtos.ResponseDtos.AuthorResponseDtos;
+using Models.Dtos.ResponseDtos.BookResponseDtos;
 using Models.Entities;
 using System;
 using System.Collections.Generic;
@@ -21,4 +22,6 @@ public interface IAuthorService
     Response<List<AuthorResponseDto>> TGetAll(Expression<Func<Author, bool>>? predicate = null, Func<IQueryable<Author>, IIncludableQueryable<Author, object>>? include = null);
     Response<AuthorResponseDto> TGetById(Guid id, Func<IQueryable<Author>, IIncludableQueryable<Author, object>>? include = null);
     Response<AuthorResponseDto> TGetByFilter(Expression<Func<Author, bool>> predicate, Func<IQueryable<Author>, IIncludableQueryable<Author, object>>? include = null);
+
+    Response<List<BookResponseWithRelationshipsDto>> TGetAuthorBooks(Guid authorId);
 }

@@ -1,6 +1,7 @@
 ﻿using Core.Persistence.Repositories;
 using DataAccess.Context;
 using DataAccess.Repositories.Abstract;
+using Microsoft.EntityFrameworkCore;
 using Models.Entities;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,6 @@ public class CategoryRepository : EfRepositoryBase<BaseDbContext, Category, Guid
 
     public List<Book> GetCategoryBooks(Guid categoryId)
     {
-        return Context.Books.Where(x => x.CategoryId == categoryId).ToList();
+        return Context.Books.Where(x => x.CategoryId == categoryId).Include(x => x.Author).Include(x => x.Category).ToList();
     }
 }
