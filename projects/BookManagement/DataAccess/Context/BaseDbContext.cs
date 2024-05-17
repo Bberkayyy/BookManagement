@@ -53,7 +53,8 @@ public class BaseDbContext : DbContext
             u.Property(x => x.LastName).HasColumnName("LastName");
             u.Property(x => x.Email).HasColumnName("Email");
             u.Property(x => x.Username).HasColumnName("Username");
-            u.Property(x => x.Password).HasColumnName("Password");
+            u.Property(x => x.PasswordHash).HasColumnName("PasswordHash");
+            u.Property(x => x.PasswordSalt).HasColumnName("PasswordSalt");
         });
         modelBuilder.Entity<AppRole>(r =>
         {
@@ -79,8 +80,6 @@ public class BaseDbContext : DbContext
         modelBuilder.Entity<Author>().HasData(new Author() { Id = authorId, FirstName = "John", LastName = "Verdon", Country = "ABD" });
         modelBuilder.Entity<Book>().HasData(new Book() { Id = Guid.NewGuid(), Name = "Aklından Bir Sayı Tut", Price = 122, Stock = 500, Description = "Sizi sizden bile iyi tanıyan bir katilin peşinizde olduğunu bilseniz, kaçmak için ne yapabilirsiniz? Polisiye türündeki eserleriyle okuyucuyu her defasında soluksuz bırakmayı başaran John Verdon’dan etkileyici bir yapıt daha! Aklında Bir Sayı Tut, bir seri katil ile onun peşine düşen bir dedektifin heyecan dolu kovalamacasını konu ediniyor. Bu katilin kurban seçtiği kişilerin ortak bir noktası var. Peki ama ne? Bu romanı okurken merakınıza engel olamayacak ve olayların sonunu asla tahmin edemeyeceksiniz!", AuthorId = authorId, CategoryId = categoryId });
         modelBuilder.Entity<AppRole>().HasData(new AppRole() { Id = 1, Name = "Admin" }, new AppRole() { Id = 2, Name = "Visitor" });
-        modelBuilder.Entity<AppUser>().HasData(new AppUser() { Id = appUserId, FirstName = "FirstName", LastName = "LastName", Username = "Username", Password = "12345", Email = "seeduser@gmail.com" });
-        modelBuilder.Entity<AppUserRole>().HasData(new AppUserRole() { Id = 1, AppUserId = appUserId, AppRoleId = 1 }, new AppUserRole() { Id = 2, AppUserId = appUserId, AppRoleId = 2 });
     }
     public DbSet<Book> Books { get; set; }
     public DbSet<Category> Categories { get; set; }

@@ -19,19 +19,19 @@ public class EfRepositoryBase<TContext, TEntity, TId> : IEntityRepository<TEntit
         Context = context;
     }
 
-    public void Add(TEntity entity)
+    public virtual void Add(TEntity entity)
     {
         Context.Set<TEntity>().Add(entity);
         Context.SaveChanges();
     }
 
-    public void Delete(TEntity entity)
+    public virtual void Delete(TEntity entity)
     {
         Context.Set<TEntity>().Remove(entity);
         Context.SaveChanges();
     }
 
-    public List<TEntity> GetAll(Expression<Func<TEntity, bool>>? predicate = null, Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>? include = null)
+    public virtual List<TEntity> GetAll(Expression<Func<TEntity, bool>>? predicate = null, Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>? include = null)
     {
         IQueryable<TEntity> queryable = Query();
 
@@ -43,7 +43,7 @@ public class EfRepositoryBase<TContext, TEntity, TId> : IEntityRepository<TEntit
         return queryable.ToList();
     }
 
-    public TEntity? GetByFilter(Expression<Func<TEntity, bool>> predicate, Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>? include = null)
+    public virtual TEntity? GetByFilter(Expression<Func<TEntity, bool>> predicate, Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>? include = null)
     {
         IQueryable<TEntity> queryable = Query();
         queryable = queryable.Where(predicate);
@@ -54,7 +54,7 @@ public class EfRepositoryBase<TContext, TEntity, TId> : IEntityRepository<TEntit
         return queryable.FirstOrDefault();
     }
 
-    public TEntity? GetById(TId id, Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>? include = null)
+    public virtual TEntity? GetById(TId id, Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>? include = null)
     {
         IQueryable<TEntity> queryable = Query();
         if (include != null)
@@ -63,7 +63,7 @@ public class EfRepositoryBase<TContext, TEntity, TId> : IEntityRepository<TEntit
         return queryable.SingleOrDefault(x => x.Id.Equals(id));
     }
 
-    public void Update(TEntity entity)
+    public virtual void Update(TEntity entity)
     {
         Context.Set<TEntity>().Update(entity);
         Context.SaveChanges();

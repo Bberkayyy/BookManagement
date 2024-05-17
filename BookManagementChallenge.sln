@@ -7,21 +7,23 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "corePackages", "corePackage
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "projects", "projects", "{6A27E613-2CD5-46D7-83D2-D49CC1109E96}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Shared", "corePackages\Core.Shared\Core.Shared.csproj", "{51917A39-420D-4766-92FB-A758A31B42D5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Shared", "corePackages\Core.Shared\Core.Shared.csproj", "{51917A39-420D-4766-92FB-A758A31B42D5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Persistence", "corePackages\Core.Persistence\Core.Persistence.csproj", "{EDE52E0D-2AFE-4AC6-9F30-93F36C033469}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Persistence", "corePackages\Core.Persistence\Core.Persistence.csproj", "{EDE52E0D-2AFE-4AC6-9F30-93F36C033469}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.CrossCuttingConcerns", "corePackages\Core.CrossCuttingConcerns\Core.CrossCuttingConcerns.csproj", "{D2BA5F01-BE3B-48CA-9372-2F635D6747E1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.CrossCuttingConcerns", "corePackages\Core.CrossCuttingConcerns\Core.CrossCuttingConcerns.csproj", "{D2BA5F01-BE3B-48CA-9372-2F635D6747E1}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BookManagement", "BookManagement", "{564BCB35-E3D2-43C2-AC49-3E7B4F8A8909}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Models", "projects\BookManagement\Models\Models.csproj", "{E9A11857-E043-442B-B677-599E26A5CE35}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Models", "projects\BookManagement\Models\Models.csproj", "{E9A11857-E043-442B-B677-599E26A5CE35}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "projects\BookManagement\DataAccess\DataAccess.csproj", "{A8724C53-928A-4BF3-BC88-BCCDBBC8B843}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccess", "projects\BookManagement\DataAccess\DataAccess.csproj", "{A8724C53-928A-4BF3-BC88-BCCDBBC8B843}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service", "projects\BookManagement\Service\Service.csproj", "{D265E6F4-20D3-4770-A0AC-2A402E417C88}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Service", "projects\BookManagement\Service\Service.csproj", "{D265E6F4-20D3-4770-A0AC-2A402E417C88}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApi", "projects\BookManagement\WebApi\WebApi.csproj", "{FE526215-20E6-4BFD-878E-824A384F9CEC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApi", "projects\BookManagement\WebApi\WebApi.csproj", "{FE526215-20E6-4BFD-878E-824A384F9CEC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Security", "corePackages\Core.Security\Core.Security.csproj", "{FE45EAEB-3A9F-44F2-8113-6BEFDDE74FD6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +59,10 @@ Global
 		{FE526215-20E6-4BFD-878E-824A384F9CEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FE526215-20E6-4BFD-878E-824A384F9CEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FE526215-20E6-4BFD-878E-824A384F9CEC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE45EAEB-3A9F-44F2-8113-6BEFDDE74FD6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE45EAEB-3A9F-44F2-8113-6BEFDDE74FD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE45EAEB-3A9F-44F2-8113-6BEFDDE74FD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE45EAEB-3A9F-44F2-8113-6BEFDDE74FD6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -70,6 +76,7 @@ Global
 		{A8724C53-928A-4BF3-BC88-BCCDBBC8B843} = {564BCB35-E3D2-43C2-AC49-3E7B4F8A8909}
 		{D265E6F4-20D3-4770-A0AC-2A402E417C88} = {564BCB35-E3D2-43C2-AC49-3E7B4F8A8909}
 		{FE526215-20E6-4BFD-878E-824A384F9CEC} = {564BCB35-E3D2-43C2-AC49-3E7B4F8A8909}
+		{FE45EAEB-3A9F-44F2-8113-6BEFDDE74FD6} = {0C2590BE-FB0C-4FE6-B073-780896B8D97A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A3B1040F-4F3C-4E67-8986-847AEE19FCAE}
