@@ -1,5 +1,6 @@
 ﻿using Core.Security.Jwt;
 using Core.Shared;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Models.Dtos.RequestDtos.AppUserRequestDtos;
@@ -9,6 +10,7 @@ using Service.Abstract;
 namespace WebApi.Controllers;
 
 [Route("api/users")]
+[AllowAnonymous]
 [ApiController]
 public class AuthsController : BaseController
 {

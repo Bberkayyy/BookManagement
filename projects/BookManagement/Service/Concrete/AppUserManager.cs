@@ -53,6 +53,12 @@ public class AppUserManager : IAppUserService
 
     public Response<AppUserResponseDto> Register(RegisterRequestDto registerRequestDto)
     {
+        _registerRules.FirstNameCanNotBeNullOrWhiteSpace(registerRequestDto.FirstName);
+        _registerRules.LastNameCanNotBeNullOrWhiteSpace(registerRequestDto.LastName);
+        _registerRules.UsernameCanNotBeNullOrWhireSpace(registerRequestDto.Username);
+        _registerRules.PasswordCanNotBeNullOrWhiteSpace(registerRequestDto.Password);
+        _registerRules.PasswordLengthMustBeAtLeast8Character(registerRequestDto.Password);
+        _registerRules.EmailCanNotBeNullOrWhiteSpace(registerRequestDto.Email);
         _registerRules.EmailMustBeUnique(registerRequestDto.Email);
         AppUser user = RegisterRequestDto.ConvertToEntity(registerRequestDto);
         _appUserRepository.Add(user);

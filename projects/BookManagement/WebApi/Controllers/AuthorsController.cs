@@ -1,4 +1,5 @@
 ﻿using Core.Shared;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Models.Dtos.RequestDtos.AuthorRequestDtos;
@@ -9,6 +10,7 @@ using Service.Abstract;
 namespace WebApi.Controllers;
 
 [Route("api/authors")]
+[Authorize(Policy = "AdminPolicy")]
 [ApiController]
 public class AuthorsController : BaseController
 {
