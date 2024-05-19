@@ -30,10 +30,7 @@ public class AuthsController : BaseController
     public IActionResult UserLogin(LoginRequestDto loginRequestDto)
     {
         GetCheckAppUser value = _appUserService.Login(loginRequestDto);
-        if (value.IsExists)
-            return Created("", JwtTokenGenerator.GenerateToken(value));
-        else
-            return BadRequest("Email or password is incorrect! Please try again.");
+        Response<TokenResponseDto> result = _appUserService.LoginControl(value);
+        return ActionResultInstance(result);
     }
-
 }

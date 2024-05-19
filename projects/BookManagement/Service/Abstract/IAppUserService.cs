@@ -17,6 +17,7 @@ public interface IAppUserService
 {
     Response<AppUserResponseDto> Register(RegisterRequestDto registerRequestDto);
     GetCheckAppUser Login(LoginRequestDto loginRequestDto);
+    Response<TokenResponseDto> LoginControl(GetCheckAppUser getCheckAppUser);
     //Response<AppUserResponseDto> TDelete(Guid id);
     //Response<List<AppUserResponseDto>> TGetAll(Expression<Func<AppUser, bool>>? predicate = null, Func<IQueryable<AppUser>, IIncludableQueryable<AppUser, object>>? include = null);
     //Response<AppUserResponseDto> TGetById(Guid id, Func<IQueryable<AppUser>, IIncludableQueryable<AppUser, object>>? include = null);

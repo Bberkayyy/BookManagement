@@ -1,4 +1,5 @@
-﻿using Core.Security;
+﻿using Core.CrossCuttingConcerns;
+using Core.Security;
 using Core.Security.Jwt;
 using Core.Shared;
 using DataAccess.Repositories.Abstract;
@@ -49,6 +50,18 @@ public class AppUserManager : IAppUserService
             checkUser.IsExists = false;
         }
         return checkUser;
+    }
+
+    public Response<TokenResponseDto> LoginControl(GetCheckAppUser getCheckAppUser)
+    {
+        if (getCheckAppUser.IsExists)
+            return new Response<TokenResponseDto>()
+            {
+                Data = JwtTokenGenerator.GenerateToken(getCheckAppUser),
+                Message = "Login is successfull!",
+                StatusCode = System.Net.HttpStatusCode.Created
+            };
+        else throw new BusinessException("Email or password is incorrect! Please try again");
     }
 
     public Response<AppUserResponseDto> Register(RegisterRequestDto registerRequestDto)
