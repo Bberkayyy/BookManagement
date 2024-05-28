@@ -8,6 +8,6 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Repositories.Abstract;
 
-public interface IAppRoleRepository : IEntityRepository<AppRole, int>
+public interface IAppRoleRepository : IEntityRepository<AppRole, int>, IAsyncEntityRepository<AppRole, int>
 {
 }

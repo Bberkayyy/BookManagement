@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Repositories.Abstract;
 
-public interface IAuthorRepository : IEntityRepository<Author, Guid>
+public interface IAuthorRepository : IEntityRepository<Author, Guid>, IAsyncEntityRepository<Author, Guid>
 {
     List<Book> GetAuthorBooks(Guid authorId);
 }

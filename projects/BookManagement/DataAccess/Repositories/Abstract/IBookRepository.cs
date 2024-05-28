@@ -8,6 +8,6 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Repositories.Abstract;
 
-public interface IBookRepository : IEntityRepository<Book, Guid>
+public interface IBookRepository : IEntityRepository<Book, Guid>, IAsyncEntityRepository<Book, Guid>
 {
 }
