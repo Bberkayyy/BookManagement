@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Repositories.Abstract;
 
-public interface IBookRepository : IEntityRepository<Book, Guid>, IAsyncEntityRepository<Book, Guid>
+public interface INoteRepository : IEntityRepository<Note, Guid>, IAsyncEntityRepository<Note, Guid>
 {
-    List<Book> SearchBooks(string? name, string? categoryName, string? authorName, string? shelfCode);
+    List<Note> GetBookNotesWithPrivacyLevel(Guid bookId);
 }

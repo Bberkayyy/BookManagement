@@ -24,6 +24,18 @@ public class BooksController : BaseController
         Response<List<BookResponseDto>> result = _bookService.TGetAll();
         return ActionResultInstance(result);
     }
+    [HttpGet("bookswithshelfinfo")]
+    public IActionResult GetBooksWithShelfInfo()
+    {
+        Response<List<BookResponseWithShelfInfoDto>> result = _bookService.TGetBooksWithShelfInfo();
+        return ActionResultInstance(result);
+    }
+    [HttpGet("search")]
+    public IActionResult GetSearchedBooks(string? name, string? categoryName, string? authorName, string? shelfCode)
+    {
+        Response<List<BookResponseForSearchDto>> result = _bookService.TSearchBooks(name, categoryName, authorName, shelfCode);
+        return ActionResultInstance(result);
+    }
     [HttpGet("{id}")]
     public IActionResult GetById(Guid id)
     {

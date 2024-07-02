@@ -21,4 +21,7 @@ public interface IBookService
     Response<List<BookResponseDto>> TGetAll(Expression<Func<Book, bool>>? predicate = null, Func<IQueryable<Book>, IIncludableQueryable<Book, object>>? include = null);
     Response<BookResponseDto> TGetById(Guid id, Func<IQueryable<Book>, IIncludableQueryable<Book, object>>? include = null);
     Response<BookResponseDto> TGetByFilter(Expression<Func<Book, bool>> predicate, Func<IQueryable<Book>, IIncludableQueryable<Book, object>>? include = null);
+
+    Response<List<BookResponseWithShelfInfoDto>> TGetBooksWithShelfInfo();
+    Response<List<BookResponseForSearchDto>> TSearchBooks(string? name, string? categoryName, string? authorName, string? shelfCode);
 }

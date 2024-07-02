@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Models.Dtos.RequestDtos.BookRequestDtos;
 
-public record BookAddRequestDto(string Name, string Description, decimal Price, int Stock, Guid CategoryId, Guid AuthorId) : RequestDto
+public record BookAddRequestDto(string Name, string Description, decimal Price, int Stock, string ImageUrl, Guid CategoryId, Guid AuthorId, int ShelfId) : RequestDto
 {
     public static Book ConvertToEntity(BookAddRequestDto addRequestDto)
     {
@@ -18,8 +18,10 @@ public record BookAddRequestDto(string Name, string Description, decimal Price, 
             Description = addRequestDto.Description,
             Price = addRequestDto.Price,
             Stock = addRequestDto.Stock,
+            ImageUrl = addRequestDto.ImageUrl,
             CategoryId = addRequestDto.CategoryId,
-            AuthorId = addRequestDto.AuthorId
+            AuthorId = addRequestDto.AuthorId,
+            ShelfId = addRequestDto.ShelfId
         };
     }
 }

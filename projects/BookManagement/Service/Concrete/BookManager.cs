@@ -1,5 +1,6 @@
 ﻿using Core.Shared;
 using DataAccess.Repositories.Abstract;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
 using Models.Dtos.RequestDtos.BookRequestDtos;
 using Models.Dtos.ResponseDtos.BookResponseDtos;
@@ -65,6 +66,17 @@ public class BookManager : IBookService
         };
     }
 
+    public Response<List<BookResponseWithShelfInfoDto>> TGetBooksWithShelfInfo()
+    {
+        List<Book> books = _bookRepository.GetAll(include: x => x.Include(x => x.Category).Include(x => x.Author).Include(x => x.Shelf));
+        List<BookResponseWithShelfInfoDto> response = books.Select(x => BookResponseWithShelfInfoDto.ConvertToResponse(x)).ToList();
+        return new Response<List<BookResponseWithShelfInfoDto>>()
+        {
+            Data = response,
+            StatusCode = System.Net.HttpStatusCode.OK
+        };
+    }
+
     public Response<BookResponseDto> TGetByFilter(Expression<Func<Book, bool>> predicate, Func<IQueryable<Book>, IIncludableQueryable<Book, object>>? include = null)
     {
         Book? book = _bookRepository.GetByFilter(predicate, include);
@@ -82,6 +94,17 @@ public class BookManager : IBookService
         Book? book = _bookRepository.GetById(id, include);
         BookResponseDto response = BookResponseDto.ConvertToResponse(book);
         return new Response<BookResponseDto>()
+        {
+            Data = response,
+            StatusCode = System.Net.HttpStatusCode.OK
+        };
+    }
+
+    public Response<List<BookResponseForSearchDto>> TSearchBooks(string? name, string? categoryName, string? authorName, string? shelfCode)
+    {
+        List<Book> books = _bookRepository.SearchBooks(name, categoryName, authorName, shelfCode);
+        List<BookResponseForSearchDto> response = books.Select(x => BookResponseForSearchDto.ConvertToResponse(x)).ToList();
+        return new Response<List<BookResponseForSearchDto>>()
         {
             Data = response,
             StatusCode = System.Net.HttpStatusCode.OK

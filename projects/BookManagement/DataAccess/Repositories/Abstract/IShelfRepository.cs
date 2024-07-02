@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Repositories.Abstract;
 
-public interface IBookRepository : IEntityRepository<Book, Guid>, IAsyncEntityRepository<Book, Guid>
+public interface IShelfRepository : IEntityRepository<Shelf, int>, IAsyncEntityRepository<Shelf, int>
 {
-    List<Book> SearchBooks(string? name, string? categoryName, string? authorName, string? shelfCode);
 }

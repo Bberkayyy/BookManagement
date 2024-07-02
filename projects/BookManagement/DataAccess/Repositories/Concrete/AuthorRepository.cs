@@ -19,6 +19,6 @@ public class AuthorRepository : EfRepositoryBase<BaseDbContext, Author, Guid>, I
 
     public List<Book> GetAuthorBooks(Guid authorId)
     {
-        return Context.Books.Where(x => x.AuthorId == authorId).Include(x => x.Category).Include(x => x.Author).ToList();
+        return Context.Books.Where(x => x.AuthorId == authorId).Include(x => x.Category).Include(x => x.Author).Include(x => x.Shelf).ToList();
     }
 }

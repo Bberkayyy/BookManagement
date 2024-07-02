@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Models.Dtos.ResponseDtos.BookResponseDtos;
 
-public record BookResponseDto(Guid Id, string Name, string Description, decimal Price, int Stock, Guid CategoryId, Guid AuthorId) : ResponseDto
+public record BookResponseDto(Guid Id, string Name, string Description, decimal Price, int Stock, string ImageUrl, Guid CategoryId, Guid AuthorId, int ShelfId) : ResponseDto
 {
     public static BookResponseDto ConvertToResponse(Book entity)
     {
@@ -17,7 +17,9 @@ public record BookResponseDto(Guid Id, string Name, string Description, decimal 
                                    Description: entity.Description,
                                    Price: entity.Price,
                                    Stock: entity.Stock,
+                                   ImageUrl: entity.ImageUrl,
                                    CategoryId: entity.CategoryId,
-                                   AuthorId: entity.AuthorId);
+                                   AuthorId: entity.AuthorId,
+                                   ShelfId: entity.ShelfId);
     }
 }

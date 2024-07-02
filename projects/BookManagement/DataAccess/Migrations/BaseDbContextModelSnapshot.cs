@@ -93,6 +93,18 @@ namespace DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("AppUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("001f7e28-1004-4003-8d93-898acf9ac96c"),
+                            Email = "bberkayoguz@gmail.com",
+                            FirstName = "Berkay",
+                            LastName = "OĞUZ",
+                            PasswordHash = "yv/4lNmwzZR9pppqpkdzG8CYCV+r4NgyvHTWA12Yx6fCYNL2nUidio5Lodn50zssjZsCD4i8eIeq5m4xr3M/PQ==",
+                            PasswordSalt = new byte[] { 183, 171, 143, 221, 101, 131, 69, 128, 78, 53, 203, 74, 154, 133, 155, 18, 33, 17, 87, 236, 166, 218, 227, 131, 53, 230, 216, 234, 114, 6, 167, 94, 64, 59, 154, 100, 47, 31, 42, 171, 135, 8, 229, 127, 114, 84, 2, 141, 98, 177, 110, 52, 121, 193, 208, 133, 169, 21, 173, 3, 83, 203, 148, 95, 153, 44, 143, 185, 73, 60, 10, 64, 249, 146, 1, 220, 202, 228, 214, 196, 229, 225, 81, 129, 194, 207, 176, 130, 125, 113, 227, 128, 4, 91, 85, 237, 85, 71, 153, 38, 236, 118, 93, 224, 141, 191, 108, 138, 114, 74, 252, 97, 40, 23, 254, 176, 161, 60, 41, 32, 197, 15, 136, 172, 217, 117, 176, 229 },
+                            Username = "berkay"
+                        });
                 });
 
             modelBuilder.Entity("Models.Entities.AppUserRole", b =>
@@ -148,7 +160,7 @@ namespace DataAccess.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("58ff2912-aec7-44ae-b3eb-5a673759c892"),
+                            Id = new Guid("c6ed66b4-a21d-44ff-8617-319d2036b697"),
                             Country = "ABD",
                             FirstName = "John",
                             LastName = "Verdon"
@@ -175,6 +187,10 @@ namespace DataAccess.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("Description");
 
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)")
@@ -183,6 +199,9 @@ namespace DataAccess.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)")
                         .HasColumnName("Price");
+
+                    b.Property<int>("ShelfId")
+                        .HasColumnType("int");
 
                     b.Property<int>("Stock")
                         .HasColumnType("int")
@@ -194,17 +213,21 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("CategoryId");
 
+                    b.HasIndex("ShelfId");
+
                     b.ToTable("Books", (string)null);
 
                     b.HasData(
                         new
                         {
-                            Id = new Guid("407e11c2-b981-4d83-ac01-a4b4ea4a0511"),
-                            AuthorId = new Guid("58ff2912-aec7-44ae-b3eb-5a673759c892"),
-                            CategoryId = new Guid("782d49b5-6692-4b74-9779-ff32ce837fc9"),
+                            Id = new Guid("ac029f7a-5cf8-46d4-826b-47f79a4f42a4"),
+                            AuthorId = new Guid("c6ed66b4-a21d-44ff-8617-319d2036b697"),
+                            CategoryId = new Guid("66398cf9-eb3c-4b73-9234-ed4182c5b133"),
                             Description = "Sizi sizden bile iyi tanıyan bir katilin peşinizde olduğunu bilseniz, kaçmak için ne yapabilirsiniz? Polisiye türündeki eserleriyle okuyucuyu her defasında soluksuz bırakmayı başaran John Verdon’dan etkileyici bir yapıt daha! Aklında Bir Sayı Tut, bir seri katil ile onun peşine düşen bir dedektifin heyecan dolu kovalamacasını konu ediniyor. Bu katilin kurban seçtiği kişilerin ortak bir noktası var. Peki ama ne? Bu romanı okurken merakınıza engel olamayacak ve olayların sonunu asla tahmin edemeyeceksiniz!",
+                            ImageUrl = "Kitap Resmi",
                             Name = "Aklından Bir Sayı Tut",
                             Price = 122m,
+                            ShelfId = 1,
                             Stock = 500
                         });
                 });
@@ -228,8 +251,124 @@ namespace DataAccess.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("782d49b5-6692-4b74-9779-ff32ce837fc9"),
+                            Id = new Guid("66398cf9-eb3c-4b73-9234-ed4182c5b133"),
                             Name = "Roman"
+                        });
+                });
+
+            modelBuilder.Entity("Models.Entities.Note", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("Id");
+
+                    b.Property<Guid>("AppUserId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("AppUserId");
+
+                    b.Property<Guid>("BookId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("BookId");
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Content");
+
+                    b.Property<bool>("IsPrivate")
+                        .HasColumnType("bit")
+                        .HasColumnName("IsPrivate");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppUserId");
+
+                    b.HasIndex("BookId");
+
+                    b.ToTable("Notes", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("26c7995e-c456-4d1c-889a-2af16f7f3848"),
+                            AppUserId = new Guid("001f7e28-1004-4003-8d93-898acf9ac96c"),
+                            BookId = new Guid("ac029f7a-5cf8-46d4-826b-47f79a4f42a4"),
+                            Content = "Aklından Bir Sayı Tut Notu",
+                            IsPrivate = true
+                        });
+                });
+
+            modelBuilder.Entity("Models.Entities.NoteShare", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("Id");
+
+                    b.Property<Guid>("NoteId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("NoteId");
+
+                    b.Property<int>("PrivacyLevel")
+                        .HasColumnType("int")
+                        .HasColumnName("PrivacyLevel");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NoteId")
+                        .IsUnique();
+
+                    b.ToTable("NoteShares", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("dff06b4f-dbdb-4a93-a4f7-f8981d416220"),
+                            NoteId = new Guid("26c7995e-c456-4d1c-889a-2af16f7f3848"),
+                            PrivacyLevel = 0
+                        });
+                });
+
+            modelBuilder.Entity("Models.Entities.Shelf", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("Id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<Guid>("BookId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("BookId");
+
+                    b.Property<int>("Floor")
+                        .HasColumnType("int")
+                        .HasColumnName("Floor");
+
+                    b.Property<string>("Section")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Section");
+
+                    b.Property<string>("ShelfCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("ShelfCode");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Shelfs", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            BookId = new Guid("ac029f7a-5cf8-46d4-826b-47f79a4f42a4"),
+                            Floor = 1,
+                            Section = "Detective Novel",
+                            ShelfCode = "A130"
                         });
                 });
 
@@ -266,9 +405,47 @@ namespace DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Models.Entities.Shelf", "Shelf")
+                        .WithMany("Books")
+                        .HasForeignKey("ShelfId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Author");
 
                     b.Navigation("Category");
+
+                    b.Navigation("Shelf");
+                });
+
+            modelBuilder.Entity("Models.Entities.Note", b =>
+                {
+                    b.HasOne("Models.Entities.AppUser", "AppUser")
+                        .WithMany("Notes")
+                        .HasForeignKey("AppUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Models.Entities.Book", "Book")
+                        .WithMany("Notes")
+                        .HasForeignKey("BookId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AppUser");
+
+                    b.Navigation("Book");
+                });
+
+            modelBuilder.Entity("Models.Entities.NoteShare", b =>
+                {
+                    b.HasOne("Models.Entities.Note", "Note")
+                        .WithOne("NoteShare")
+                        .HasForeignKey("Models.Entities.NoteShare", "NoteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Note");
                 });
 
             modelBuilder.Entity("Models.Entities.AppRole", b =>
@@ -279,6 +456,8 @@ namespace DataAccess.Migrations
             modelBuilder.Entity("Models.Entities.AppUser", b =>
                 {
                     b.Navigation("AppUserRoles");
+
+                    b.Navigation("Notes");
                 });
 
             modelBuilder.Entity("Models.Entities.Author", b =>
@@ -286,7 +465,23 @@ namespace DataAccess.Migrations
                     b.Navigation("Books");
                 });
 
+            modelBuilder.Entity("Models.Entities.Book", b =>
+                {
+                    b.Navigation("Notes");
+                });
+
             modelBuilder.Entity("Models.Entities.Category", b =>
+                {
+                    b.Navigation("Books");
+                });
+
+            modelBuilder.Entity("Models.Entities.Note", b =>
+                {
+                    b.Navigation("NoteShare")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Models.Entities.Shelf", b =>
                 {
                     b.Navigation("Books");
                 });

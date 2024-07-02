@@ -21,6 +21,9 @@ public static class DataAccessRegistrations
         services.AddScoped<IBookRepository, BookRepository>();
         services.AddScoped<IAuthorRepository, AuthorRepository>();
         services.AddScoped<ICategoryRepository, CategoryRepository>();
+        services.AddScoped<IShelfRepository, ShelfRepository>();
+        services.AddScoped<INoteRepository, NoteRepository>();
+        services.AddScoped<INoteShareRepository, NoteShareRepository>();
         services.AddScoped<IAppUserRepository, AppUserRepository>();
         services.AddScoped<IAppRoleRepository, AppRoleRepository>();
         services.AddScoped<IAppUserRoleRepository, AppUserRoleRepository>();

@@ -20,6 +20,6 @@ public class CategoryRepository : EfRepositoryBase<BaseDbContext, Category, Guid
 
     public List<Book> GetCategoryBooks(Guid categoryId)
     {
-        return Context.Books.Where(x => x.CategoryId == categoryId).Include(x => x.Author).Include(x => x.Category).ToList();
+        return Context.Books.Where(x => x.CategoryId == categoryId).Include(x => x.Author).Include(x => x.Category).Include(x => x.Shelf).ToList();
     }
 }

@@ -17,4 +17,5 @@ public class AppUser : Entity<Guid>
     public byte[] PasswordSalt { get; set; }
 
     public List<AppUserRole> AppUserRoles { get; set; }
+    public List<Note> Notes { get; set; }
 }
