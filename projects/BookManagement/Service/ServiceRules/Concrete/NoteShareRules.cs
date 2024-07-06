@@ -27,6 +27,13 @@ public class NoteShareRules : INoteShareRules
             throw new BusinessException("Note does not exists!");
     }
 
+    public void NoteIsPrivateShouldBeFalseWhenNotShareCreated(Guid noteId)
+    {
+        Note? note = _noteRepository.GetByFilter(x => x.Id == noteId);
+        if (note.IsPrivate == true)
+            throw new BusinessException("This note is private!");
+    }
+
     public void NoteShareIsExists(Guid noteShareId)
     {
         NoteShare? noteShare = _noteShareRepository.GetById(noteShareId);

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Models.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,4 +11,5 @@ public interface INoteShareRules
 {
     void NoteIsExists(Guid noteId);
     void NoteShareIsExists(Guid noteShareId);
+    void NoteIsPrivateShouldBeFalseWhenNotShareCreated(Guid noteId);
 }

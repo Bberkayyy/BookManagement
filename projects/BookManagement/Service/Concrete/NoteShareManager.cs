@@ -30,6 +30,7 @@ public class NoteShareManager : INoteShareService
     public Response<NoteShareResponseDto> TAdd(NoteShareAddRequestDto addRequestDto)
     {
         _noteShareRules.NoteIsExists(addRequestDto.NoteId);
+        _noteShareRules.NoteIsPrivateShouldBeFalseWhenNotShareCreated(addRequestDto.NoteId);
         NoteShare noteShare = NoteShareAddRequestDto.ConvertToEntity(addRequestDto);
         _noteShareRepository.Add(noteShare);
         NoteShareResponseDto response = NoteShareResponseDto.ConvertToResponse(noteShare);
